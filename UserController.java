@@ -28,6 +28,7 @@ public class UserController {
 	
 	@Autowired
 	private MstUserMapper userMapper;
+	
 	@Autowired
 	private LoginSession loginSession;
 	
@@ -39,13 +40,10 @@ public class UserController {
 	 */
 	@RequestMapping("/")
 	public String index(Model m) {
-	/*
-	 * 「04_画面設計書_新規ユーザー登録.pdf」を表示する。
-	 * 新規ユーザー登録画面の表示。
-	 */
-		m.addAttribute("loginSession", loginSession); 
-		return "register_user"; 
+	
+		m.addAttribute("loginSession", loginSession);
 		
+		return "register_user"; 
 	}
 	
 	/**
@@ -56,18 +54,13 @@ public class UserController {
 	@PostMapping("/duplicatedUserName")
 	@ResponseBody
 	public boolean duplicatedUserName(@RequestBody UserForm f) {
-		/*
-		 * 重複確認ボタンを押下された場合は、以下の処理をおこなう。
-		   ユーザーの存在チェック(DBの会員情報マスタテーブルにユーザー名が一致するユーザーが存在しているかを確認)をおこなう。
-		   結果を返す。　
-		 */
+		
 		int count = userMapper.findCountByUserName(f.getUserName());
 		if(count>0) {
 			return true;
 		} else {
 			return false;
 		}
-		
 	}
 	
 	/**
@@ -78,13 +71,9 @@ public class UserController {
 	@PostMapping("/register")
 	@ResponseBody
 	public boolean register(@RequestBody UserForm f) {
-		/*
-		 *登録ボタンを押下された場合は、入力チェック(【入力チェック】参照)をおこなう。
-		 *エラーがない場合は、DBの会員情報マスタテーブルに入力値を登録する。
-		 *結果を返す。（登録が成功すればtrue、失敗ならfalseを返す）
-		 */
 		
 		MstUser user= new MstUser();
+		
 		user.setUserName(f.getUserName());
 		user.setPassword(f.getPassword());
 		user.setFamilyName(f.getFamilyName());
@@ -92,26 +81,13 @@ public class UserController {
 		user.setFamilyNameKana(f.getFamilyNameKana());
 		user.setFirstNameKana(f.getFirstNameKana());
 		user.setGender(f.getGender());
+		
 	    int result = userMapper.insert(user); 
+	    
 	    if(result>0) {
 			return true;
 		} else {
 			return false;
 		}
-	    
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

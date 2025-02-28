@@ -8,10 +8,12 @@ import java.io.Serializable;
  *
  */
 public class UserForm implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String userName;
 	private String password;
+	private String newPassword;
 	private String familyName;
 	private String firstName;
 	private String familyNameKana;
@@ -68,6 +70,12 @@ public class UserForm implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 		
 }
